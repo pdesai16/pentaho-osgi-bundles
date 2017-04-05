@@ -2,7 +2,7 @@
  *
  * Pentaho Data Integration
  *
- * Copyright (C) 2002-2014 by Pentaho : http://www.pentaho.com
+ * Copyright (C) 2002-2017 by Pentaho : http://www.pentaho.com
  *
  *******************************************************************************
  *
@@ -63,11 +63,10 @@ public class PlatformPluginBundlingURLConnection extends URLConnection {
   } );
 
   public PlatformPluginBundlingURLConnection( URL u, List<PluginFileHandler> pluginFileHandlers ) {
-   this(u,pluginFileHandlers,null);
+    this( u, pluginFileHandlers, null );
   }
 
-  public PlatformPluginBundlingURLConnection(URL u, List<PluginFileHandler> pluginFileHandlers,
-                                             BundleStateManager bundleStateManager) {
+  public PlatformPluginBundlingURLConnection( URL u, List<PluginFileHandler> pluginFileHandlers, BundleStateManager bundleStateManager ) {
     super( u );
     this.pluginFileHandlers = pluginFileHandlers;
     this.bundleStateManager = bundleStateManager;
@@ -92,13 +91,13 @@ public class PlatformPluginBundlingURLConnection extends URLConnection {
   @Override
   public InputStream getInputStream() throws IOException {
     final ExceptionPipedInputStream pipedInputStream =
-        new ExceptionPipedInputStream( getMaxSize( getURL().getQuery() ) );
+      new ExceptionPipedInputStream( getMaxSize( getURL().getQuery() ) );
 
 
     String path = getURL().toString();
     String artifactName;
     String[] nameVersion;
-    if( path.startsWith( "file:" ) ){
+    if ( path.startsWith( "file:" ) ) {
       artifactName = path.substring( path.lastIndexOf( "/" ) + 1 );
       nameVersion = new String[] {
         artifactName.substring( 0, artifactName.lastIndexOf( "." ) == -1 ? artifactName.length() : artifactName.lastIndexOf( "." ) ),
@@ -122,10 +121,10 @@ public class PlatformPluginBundlingURLConnection extends URLConnection {
     InputStream connectionInputStream = connection.getInputStream();
     ZipInputStream zipInputStream = new ZipInputStream( connectionInputStream );
     final PluginZipFileProcessor pluginZipFileProcessor =
-            new PluginZipFileProcessor( pluginFileHandlers, hasPluginProcessedBefore, nameVersion[ 0 ],
-                    nameVersion[ 0 ], nameVersion[ 1 ] );
+      new PluginZipFileProcessor( pluginFileHandlers, hasPluginProcessedBefore, nameVersion[ 0 ],
+        nameVersion[ 0 ], nameVersion[ 1 ] );
     pluginZipFileProcessor.processBackground( executorService, zipInputStream, zipOutputStream,
-            pipedInputStream );
+      pipedInputStream );
     return pipedInputStream;
 
   }

@@ -2,7 +2,7 @@
  *
  * Pentaho Data Integration
  *
- * Copyright (C) 2002-2016 by Pentaho : http://www.pentaho.com
+ * Copyright (C) 2002-2017 by Pentaho : http://www.pentaho.com
  *
  *******************************************************************************
  *
@@ -96,7 +96,7 @@ public class PluginZipFileProcessorTest {
   public void testProcess() throws IOException {
     List<PluginFileHandler> pluginFileHandlers = new ArrayList<PluginFileHandler>();
     PluginZipFileProcessor pluginZipFileProcessor =
-      new PluginZipFileProcessor( pluginFileHandlers, false,"test", "test-symbolic", "version" );
+      new PluginZipFileProcessor( pluginFileHandlers, false, "test", "test-symbolic", "version" );
     ZipOutputStream zipOutputStream = mock( ZipOutputStream.class );
     pluginZipFileProcessor.process( new ZipInputStream( this.getClass().getClassLoader()
         .getResourceAsStream( "org/pentaho/osgi/platform/plugin/deployer/testCanHandleWithPluginXmlOneDirDown.zip" ) ),

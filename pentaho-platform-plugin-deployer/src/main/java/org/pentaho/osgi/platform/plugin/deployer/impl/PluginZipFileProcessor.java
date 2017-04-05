@@ -69,15 +69,15 @@ public class PluginZipFileProcessor {
   private final String symbolicName;
   private final String version;
 
-  private boolean hasPluginProcessedBefore;
+  private boolean isPluginProcessedBefore;
 
-  public PluginZipFileProcessor( List<PluginFileHandler> pluginFileHandlers, boolean hasPluginProcessedBefore, String name, String symbolicName,
+  public PluginZipFileProcessor( List<PluginFileHandler> pluginFileHandlers, boolean isPluginProcessedBefore, String name, String symbolicName,
                                  String version ) {
     this.pluginFileHandlers = pluginFileHandlers;
     this.name = name;
     this.symbolicName = symbolicName;
     this.version = version;
-    this.hasPluginProcessedBefore = hasPluginProcessedBefore;
+    this.isPluginProcessedBefore = isPluginProcessedBefore;
   }
 
 
@@ -88,7 +88,7 @@ public class PluginZipFileProcessor {
     return executorService.submit( new Callable<Void>() {
       @Override public Void call() throws Exception {
         try {
-          if ( hasPluginProcessedBefore ) {
+          if ( isPluginProcessedBefore ) {
             processManifest( zipInputStream, zipOutputStream );
           } else {
             process( zipInputStream, zipOutputStream );
@@ -130,7 +130,6 @@ public class PluginZipFileProcessor {
         boolean shouldOutput = true;
         if ( name.endsWith( MANIFEST_MF ) ) {
           shouldOutput = false;
-          System.out.println("TESTING **" + "  FOUND manifest in zip file ");
           manifest = new Manifest( new ByteArrayInputStream( zipBytes ) );
         } else if ( name.contains( OSGI_INF_BLUEPRINT ) && !name.endsWith( OSGI_INF_BLUEPRINT ) ) {
           shouldOutput = false;

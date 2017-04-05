@@ -61,8 +61,7 @@ public class PlatformDeployerBundleListener implements BundleListener {
         // Checking for "common-ui" for now
         if ( event.getBundle().getSymbolicName().startsWith( "common-ui" ) ) {
           String bundleStr = event.getBundle().getHeaders().get( "Bundle-Name" ) +  event.getBundle().getHeaders().get( "Bundle-Version" );
-          log.info( " LISTENER PlatformDeployerBundleListener Headers = " + event.getBundle().getHeaders().get( "Bundle-Version" )
-            + event.getBundle().getHeaders().get( "Bundle-Name" ) );
+          log.info( "LISTENER PlatformDeployerBundleListener found Headers: {}", bundleStr );
           bundleStateManager.setState( bundleStr, event.getBundle().getState() );
         }
         break;

@@ -22,12 +22,16 @@
 
 package org.pentaho.osgi.platform.plugin.deployer.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 import java.util.HashMap;
 /**
  * Created by pdesai on 4/4/2017.
  */
 public class BundleStateManager {
+  private static Logger log = LoggerFactory.getLogger( BundleStateManager.class );
   Map<String, Integer> bundleState;
 
 
@@ -36,7 +40,7 @@ public class BundleStateManager {
   }
 
   public void setState( String name, int state ) {
-    System.out.println( "BundleStateManager Adding the state for " + name + " state " + state );
+    log.debug( "BundleStateManager adding the state for bundle: {}, with state: {}", name, state );
     bundleState.put( name, state );
   }
 
